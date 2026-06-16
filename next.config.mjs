@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
+const r2Hostname = process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.replace("https://", "") ?? "";
+
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.replace("https://", "") ?? "",
-      },
-    ],
+    remotePatterns: r2Hostname
+      ? [{ protocol: "https", hostname: r2Hostname }]
+      : [],
   },
 };
 
