@@ -15,7 +15,8 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      await api.post('/auth/login', { email, password })
+      const data = await api.post<{ access_token: string }>('/auth/login', { email, password })
+      document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60}; SameSite=Lax`
       router.push('/dashboard')
     } catch (err: any) {
       toast.error(err.message ?? 'Erro ao fazer login')
